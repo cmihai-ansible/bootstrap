@@ -1,21 +1,21 @@
 ---
 # tasks file for bootstrap
 
-- name: assert supported distributions and versions
-  assert:
-    that:
-      - ( ansible_distribution == "RedHat" and ( ansible_distribution_major_version >= '7' )
-        ) or
-        ( ansible_distribution == "CentOS" and ( ansible_distribution_major_version >= "7" )
-        ) or
-        ( ansible_distribution == "Fedora" and ( ansible_distribution_major_version == "31" )
-        ) or
-        ( ansible_distribution == "Debian" and ( ansible_distribution_major_version == "10" )
-        ) or
-        ( ansible_distribution == "Ubuntu" and ( ansible_distribution_major_version == "18" )
-        )
-
 - name: python is installed
-  script: files/bootstrap.sh
-  args:
-    creates: /usr/bin/python
+  raw: |
+    if [ $(command -v apt-get) ]; then
+      apt-get update \
+      && apt-get install -y \
+        python sudo bash ca-certificates systemd-sysv
+    elif [ $(command -v dnf) ]; then
+      dnf makecache \
+      && dnf --assumeyes install \
+        python3 python3-pip sudo python3-devel python3-dnf bash python3-libselinux \
+      && dnf clean all
+    elif [ $(command -v yum) ]; then
+      yum makecache fast \
+      && yum install -y \
+        python sudo yum-plugin-ovl bash \
+      && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf
+    fi
+  tags: molecule-idempotence-notest
