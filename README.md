@@ -1,7 +1,7 @@
 Role Name
 =========
 
-bootstrap
+bootstrap: install python
 
 [![Build Status](https://travis-ci.org/cmihai-ansible/bootstrap.svg?branch=master)](https://travis-ci.org/cmihai-ansible/bootstrap)
 
@@ -22,15 +22,6 @@ Requirements
 Role Variables
 --------------
 
-```yaml
-bootstrap_remove_packages: true
-bootstrap_enable_service: true
-bootstrap_enable_selinux: true
-bootstrap_firewall_configure: true
-bootstrap_firewall_rules:
-  - service:
-```
-
 Dependencies
 ------------
 
@@ -45,17 +36,12 @@ Example Playbook
   hosts:
     - localhost
   connection: local
+  gather_facts: false
 
   tasks:
     - name: bootstrap is configured
       import_role:
         name: crivetimihai.bootstrap
-      vars:
-        bootstrap_remove_packages: true
-        bootstrap_enable_service: true
-        bootstrap_firewall_configure: true
-        bootstrap_firewall_rules:
-          - service:
       tags: bootstrap
 ```
 
