@@ -30,8 +30,6 @@ provisioner:
       stdout_callback: debug
   log: true
   playbooks:
-    vagrant:
-      prepare: ../resources/playbooks/prepare.yml
     converge: ../resources/playbooks/playbook.yml
     verify: ../resources/playbooks/verify.yml
   lint:

@@ -3,3 +3,4 @@
   hosts: all
   roles:
     - role: bootstrap
+  gather_facts: false
