@@ -1,0 +1,11 @@
+# Molecule managed
+---
+command:
+  help:
+    exit-status: 0
+    exec: "python --version"
+    stdout:
+      - "/Python/"
+    stderr: []
+    timeout: 10000      # in milliseconds
+    skip: false
