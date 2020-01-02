@@ -1,5 +1,11 @@
 # Molecule managed
 ---
-file:
-  /usr/bin/python:
-    exists: true
+command:
+  help:
+    exit-status: 0
+    exec: "command -v python || command -v python2 || command -v python3"
+    stdout:
+      - "/python/"
+    stderr: []
+    timeout: 10000      # in milliseconds
+    skip: false
