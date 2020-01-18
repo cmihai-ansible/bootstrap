@@ -1,7 +1,7 @@
 ---
 # tasks file for bootstrap
 
-- name: python is installed
+- name: python is installed       # noqa 301
   raw: |
     if [ $(command -v apt-get) ]; then
       apt-get update \
